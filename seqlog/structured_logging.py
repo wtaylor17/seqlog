@@ -120,10 +120,11 @@ class StructuredLogRecord(logging.LogRecord):
 
         if self.args:
             return self.msg % self.args
-        elif self.log_props:
-            return self.msg.format(**self.log_props)
         else:
-            return self.msg
+            try:
+                return self.msg.format(**self.log_props)
+            except:
+                return self.msg
 
 
 class StructuredLogger(logging.Logger):
